@@ -5,6 +5,10 @@ inputs:
     description: added flag caching through custom action input
     required: false
     default: "true"
+outputs:
+  cache-info:
+    description: provide information that cache is used or not
+    value: ${{steps.install.outputs.cacheInfo}}
 runs:
   using: "composite"
   steps:
@@ -17,5 +21,8 @@ runs:
         key: deps-node-modules-${{ hashFiles('**/package-lock.json') }}
     - name: Install dependencies
       if: steps.cache.outputs.cache-hit != 'true' || inputs.caching != 'true'
-      run: npm ci
+      id: install
+      run: |
+        npm ci
+        echo 'cacheInfo=${{ inputs.caching }}' >> $GITHUB_OUTPUT
       shell: bash

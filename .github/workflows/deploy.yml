@@ -11,8 +11,11 @@ jobs:
         uses: actions/checkout@v7
       - name: Loading and Install Depedency
         uses: ./.github/actions/dev-dependency
+        id: cacheinfo
         with:
           caching: "false"
+      - name: output cache info
+        run: echo '${{steps.cacheinfo.outputs.cache-info}}'
       - name: Lint code
         run: npm run lint
   test:
