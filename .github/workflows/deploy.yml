@@ -12,7 +12,7 @@ jobs:
       - name: Loading and Install Depedency
         uses: ./.github/actions/dev-dependency
         with:
-          caching: false
+          caching: "false"
       - name: Lint code
         run: npm run lint
   test:
