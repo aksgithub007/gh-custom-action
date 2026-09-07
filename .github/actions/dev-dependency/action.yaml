@@ -1,15 +1,21 @@
 name: Cache and Dev dependency
 description: we are combine all common step for cache and install depedency
+inputs:
+  caching:
+    description: added flag caching through custom action input
+    required: false
+    default: "true"
 runs:
   using: "composite"
   steps:
     - name: Cache dependencies
+      if: inputs.caching = "true"
       id: cache
       uses: actions/cache@v6
       with:
         path: node_modules
         key: deps-node-modules-${{ hashFiles('**/package-lock.json') }}
     - name: Install dependencies
-      if: steps.cache.outputs.cache-hit != 'true'
+      if: steps.cache.outputs.cache-hit != 'true' || inputs.caching != true
       run: npm ci
       shell: bash
