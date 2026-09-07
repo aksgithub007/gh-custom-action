@@ -9,15 +9,8 @@ jobs:
     steps:
       - name: Get code
         uses: actions/checkout@v7
-      - name: Cache dependencies
-        id: cache
-        uses: actions/cache@v6
-        with:
-          path: node_modules
-          key: deps-node-modules-${{ hashFiles('**/package-lock.json') }}
-      - name: Install dependencies
-        if: steps.cache.outputs.cache-hit != 'true'
-        run: npm ci
+      - name: Loading and Install Depedency
+        uses: ./.github/actions/dev-dependency
       - name: Lint code
         run: npm run lint
   test:

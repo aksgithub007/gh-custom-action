@@ -1,0 +1,15 @@
+name: Cache and Dev dependency
+description: we are combine all common step for cache and install depedency
+runs:
+  using: "composite"
+  steps:
+    - name: Cache dependencies
+      id: cache
+      uses: actions/cache@v6
+      with:
+        path: node_modules
+        key: deps-node-modules-${{ hashFiles('**/package-lock.json') }}
+    - name: Install dependencies
+      if: steps.cache.outputs.cache-hit != 'true'
+      run: npm ci
+      shell: bash
