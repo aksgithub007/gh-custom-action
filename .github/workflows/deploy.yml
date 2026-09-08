@@ -88,6 +88,6 @@ jobs:
           bucket-region: us-east-1
           deploy-folder: ./dist
       - name: webiste-url
-        run: echo "Website URL: ${{ steps.deploy.outputs.website-url }}"
+        run: echo "Website URL - ${{ steps.deploy.outputs.website-url }}"
       - name: deploy-status
-        run: echo "Deployment Status: ${{ steps.deploy.outputs.deploy-status }}"
+        run: echo "Deployment Status - ${{ steps.deploy.outputs.deploy-status }}"
