@@ -79,6 +79,7 @@ jobs:
       - name: Deploy site
         continue-on-error: true
         uses: ./.github/actions/deploy-s3-bucket
+        id: deploy
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
@@ -86,3 +87,7 @@ jobs:
           bucket-name: gh-custom-actions
           bucket-region: us-east-1
           deploy-folder: ./dist
+      - name: webiste-url
+        run: echo "Website URL: ${{ steps.deploy.outputs.website-url }}"
+      - name: deploy-status
+        run: echo "Deployment Status: ${{ steps.deploy.outputs.deploy-status }}"

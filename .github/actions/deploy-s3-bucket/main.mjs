@@ -33,9 +33,10 @@ function deploy() {
   const s3Uri = `s3://${bucketName}`;
   exec.exec(`aws s3 sync ${deployFolder} ${s3Uri} -- region ${bucketRegion}`);
 
-  core.notice(
-    "Deploying static website to s3 bucket by using javascript custom action",
-  );
+  // send website url to output
+  const websiteUrl = `http://${bucketName}.s3-website-${bucketRegion}.amazonaws.com`;
+  core.setOutput("website-url", websiteUrl);
+  core.setOutput("deploy-status", "success");
 }
 
 deploy();
