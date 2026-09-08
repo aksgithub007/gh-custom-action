@@ -1,0 +1,5 @@
+name: Deploying to S3 bucket
+description: Deploying static website to s3 bucket
+runs:
+  using: "node24"
+  main: "main.js"
