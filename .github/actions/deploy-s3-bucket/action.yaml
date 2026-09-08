@@ -1,5 +1,16 @@
 name: Deploying to S3 bucket
 description: Deploying static website to s3 bucket
+inputs:
+  bucket-name:
+    description: "The name of the S3 bucket to deploy to"
+    required: true
+  bucket-region:
+    description: "The region of the S3 bucket to deploy to"
+    required: false
+    default: "us-east-1"
+  deploy-folder:
+    description: "The folder to deploy to the S3 bucket"
+    required: true
 runs:
   using: "node24"
   main: "main.mjs"
